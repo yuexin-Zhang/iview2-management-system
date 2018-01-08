@@ -2,7 +2,7 @@
   <section class="login-wrap">
     <!-- <Col span="6"> -->
       <Form ref='form' class="left-form">
-        <h3>智慧食堂</h3>
+        <h3>轻点食</h3>
         <div class="fields">
           <Form-item style="margin-bottom: 0">
             <div style="display:flex;justify-content:center;">
@@ -29,7 +29,8 @@
       </Form>
     <!-- </Col> -->
     <Form ref='form' class="menu-form">
-      <h3>今日菜谱</h3>
+      <!-- <h3 @click="freshMenu()">今日菜谱</h3> -->
+      <div class="css-menu-3d-btn" @click="freshMenu()">今日菜谱</div>
       <div class="fields">
         <Form-item style="margin-bottom: 0">
           <table style="width:100%; border-collapse:separate; border-spacing:20px;">
@@ -186,10 +187,10 @@
                     </td>
                   </tr>
               </table>
-              <div style="width:125px;height:28px;display:inline-block;position:relative;"><img src="../assets/icon-come.png" width="28" height="28"><span style="font-size:14px;display:inline;position:absolute;">订餐并就餐：{{state3}}</span></div>
-              <div style="width:125px;height:28px;display:inline-block;position:relative;"><img src="../assets/icon-uncome.png" width="25" height="25" style="position: absolute;top:1px;"><span style="font-size:14px;display:inline;position:absolute;left:28px;">订餐未就餐：{{state2}}</span></div>
-              <div style="width:125px;height:28px;display:inline-block;position:relative;"><img src="../assets/icon-come-noorder.png" width="25" height="25" style="position: absolute;top:1px;"><span style="font-size:14px;display:inline;position:absolute;left:28px;">就餐未订餐：{{state4}}</span></div>
-              <div style="width:125px;height:28px;display:inline-block;position:relative"><img src="../assets/icon-unselect.png" width="28" height="28" style="position: absolute;top:-11px;"><span style="font-size:14px;display:inline;position:absolute;left:28px;top:-11px">未订餐：{{state1}}</span></div>
+              <div style="width:130px;height:28px;display:inline-block;position:relative;"><img src="../assets/icon-come.png" width="28" height="28"><span style="font-size:14px;display:inline;position:absolute;">订餐并就餐：{{state3}}</span></div>
+              <div style="width:130px;height:28px;display:inline-block;position:relative;"><img src="../assets/icon-uncome.png" width="25" height="25" style="position: absolute;top:1px;"><span style="font-size:14px;display:inline;position:absolute;left:28px;">订餐未就餐：{{state2}}</span></div>
+              <div style="width:130px;height:28px;display:inline-block;position:relative;"><img src="../assets/icon-come-noorder.png" width="25" height="25" style="position: absolute;top:1px;"><span style="font-size:14px;display:inline;position:absolute;left:28px;">就餐未订餐：{{state4}}</span></div>
+              <div style="width:130px;height:28px;display:inline-block;position:relative"><img src="../assets/icon-unselect.png" width="28" height="28" style="position: absolute;top:-11px;"><span style="font-size:14px;display:inline;position:absolute;left:28px;top:-11px">未订餐：{{state1}}</span></div>
               
           </Form-item>
           <div style="position: absolute;bottom: 35px;left: 0;right: 0;">
@@ -300,7 +301,7 @@
               if (data.return_code === 1) {
                 vm.loading = false
                 vm.$Notice.success({
-                  title: '登录成功',
+                  title: '就餐成功',
                   duration: 3
                 })
                 vm.queryMealStatus()
@@ -366,6 +367,25 @@
             })
           }
         }
+      },
+      freshMenu () {
+        // let vm = this
+        // let day = JSON.stringify(new Date().getDate()).length > 1 ? new Date().getDate() : '0' + new Date().getDate()
+        // let month = JSON.stringify(new Date().getDate()).length > 1 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)
+        // vm.today = new Date().getFullYear() + '-' + month + '-' + day
+        // axios.post('http://' + this.ip + '/canteen/getOneDayMenu.php', qs.stringify({
+        //   EatingDate: vm.today
+        // })).then(function (res) {
+        //   let data = res.data
+        //   if (data.return_code === 1) {
+        //     console.log(data.return_msg)
+        //     vm.lunchMenuList = data.return_msg.lunch
+        //     vm.dinnerMenuList = data.return_msg.dinner
+        //   }
+        // }).catch(function (error) {
+        //   console.log(error)
+        // })
+        location.reload()
       },
       selectTab (index) {
         let vm = this
@@ -496,7 +516,8 @@
     created () {
       let vm = this
       let day = JSON.stringify(new Date().getDate()).length > 1 ? new Date().getDate() : '0' + new Date().getDate()
-      vm.today = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + day
+      let month = JSON.stringify(new Date().getDate()).length > 1 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)
+      vm.today = new Date().getFullYear() + '-' + month + '-' + day
       let EatingTime = 0
       let now = new Date().getHours()
       if (now >= 10 && now <= 14) {
@@ -614,13 +635,51 @@
     border-radius: 12px;
     box-shadow: 2px 2px 32px 1px rgba(0, 0, 0, .45);
     opacity: .85;
+    .css-menu-3d-btn {
+       cursor: pointer;
+       position: relative;
+       color: rgba(255, 255, 255, 1);
+       text-decoration: none;
+       background-color: rgba(219, 87, 51, 1);
+       /*font-family: "微软雅黑";*/
+       font-weight: 700;
+       font-size: 2em;
+       display: block;
+       /*padding: 65px 10px;*/
+       border-radius: 20px;
+       /* let's use box shadows to make the button look more 3-dimensional */
+       box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, .7);
+       margin: 0 auto;
+       /*margin-top: 50px;*/
+       width: 290px;
+       height: 60px;
+       line-height: 60px;
+       text-align: center;
+       vertical-align: center;
+       -webkit-transition: all .1s ease;
+       -moz-transition: all .1s ease;
+       transition: all .1s ease;
+    }
+
+/* now if we make the box shadows smaller when the button is clicked, it'll look like the button has been "pushed" */
+
+      .css-menu-3d-btn:active{
+       box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
+       position: relative;
+       top: -3px;
+      }
     h3 {
+      width: 20%;
       margin-top: 0;
       margin-bottom: 0;
+      margin: 0 auto;
       padding: 12px 0;
       font-weight: normal;
       font-size: 22px;
       text-align: center;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, .45);
+      cursor: pointer;
     }
     .field {
       display: block;
@@ -720,11 +779,11 @@
     z-index: 1;
     top: 100px;
     bottom: 0;
-    right: 4%;
+    right: 3%;
     /*right: 0px;*/
     /*margin: 0 auto;*/
     padding: 16px 20px 0;
-    width: 22%;
+    width: 23%;
     height: 900px;
     font-size: 14px;
     background: #fff;
